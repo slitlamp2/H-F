@@ -2,7 +2,7 @@ import React from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { useRequiredProfile } from '../context/ProfileContext';
-import { getGuides, getRecommendedProducts } from '../core/recommend';
+import { getGuides, getProductReviewLabel, getRecommendedProducts } from '../core/recommend';
 import { AGE_GROUP_LABELS, CONCERN_LABELS } from '../types';
 import { colors, spacing } from '../theme';
 
@@ -27,14 +27,17 @@ export default function RecommendScreen() {
 
       <Text style={styles.headline}>추천 제품·성분</Text>
       <Text style={styles.disclaimer}>
-        특정 브랜드가 아닌 성분·카테고리 기준 추천이에요. 의약품은 반드시
-        전문가와 상담하세요.
+        {getProductReviewLabel()}. 성분·카테고리 기준 추천이며, 괄호 안은 대표
+        브랜드 예시예요. 초록 칸은 올리브영에서 구하기 쉬운 비슷한 제품이에요.
+        의약품은 반드시 전문가와 상담하세요.
       </Text>
 
       {products.map((product) => (
         <View key={product.id} style={styles.productCard}>
           <View style={styles.productHeader}>
-            <Text style={styles.productName}>{product.name}</Text>
+            <Text style={styles.productName}>
+              {product.name} ({product.brand})
+            </Text>
             <Text style={styles.productCategory}>{product.category}</Text>
           </View>
           {product.keyIngredients.length > 0 && (
@@ -47,6 +50,15 @@ export default function RecommendScreen() {
             </View>
           )}
           <Text style={styles.productDescription}>{product.description}</Text>
+          <View style={styles.oliveYoungBox}>
+            <Text style={styles.oliveYoungBadge}>올리브영</Text>
+            <View style={styles.oliveYoungCopy}>
+              <Text style={styles.oliveYoungName}>{product.oliveYoung.name}</Text>
+              {product.oliveYoung.note ? (
+                <Text style={styles.oliveYoungNote}>{product.oliveYoung.note}</Text>
+              ) : null}
+            </View>
+          </View>
         </View>
       ))}
     </ScrollView>
@@ -106,10 +118,12 @@ const styles = StyleSheet.create({
   productHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
+    alignItems: 'flex-start',
+    gap: spacing.sm,
   },
   productName: {
     flex: 1,
+    marginRight: spacing.sm,
     fontSize: 15,
     fontWeight: '700',
     color: colors.text,
@@ -117,6 +131,8 @@ const styles = StyleSheet.create({
   productCategory: {
     fontSize: 12,
     color: colors.textMuted,
+    flexShrink: 0,
+    marginTop: 2,
   },
   ingredientRow: {
     flexDirection: 'row',
@@ -136,5 +152,40 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: colors.textMuted,
     lineHeight: 19,
+  },
+  oliveYoungBox: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    gap: spacing.sm,
+    backgroundColor: colors.oliveYoungLight,
+    borderRadius: 10,
+    paddingHorizontal: spacing.sm,
+    paddingVertical: spacing.sm,
+  },
+  oliveYoungBadge: {
+    fontSize: 11,
+    fontWeight: '700',
+    color: '#FFFFFF',
+    backgroundColor: colors.oliveYoung,
+    overflow: 'hidden',
+    paddingHorizontal: spacing.sm,
+    paddingVertical: 3,
+    borderRadius: 6,
+    marginTop: 1,
+  },
+  oliveYoungCopy: {
+    flex: 1,
+    gap: 2,
+  },
+  oliveYoungName: {
+    fontSize: 13,
+    fontWeight: '600',
+    color: colors.text,
+    lineHeight: 18,
+  },
+  oliveYoungNote: {
+    fontSize: 11,
+    color: colors.textMuted,
+    lineHeight: 16,
   },
 });

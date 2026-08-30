@@ -74,14 +74,31 @@ export interface RoutineLog {
   completedTaskIds: string[];
 }
 
+/** 올리브영에서 구하기 쉬운 비슷한 제품 예시 */
+export interface OliveYoungExample {
+  name: string;
+  /** 동일 성분이 아닐 때 안내 (예: 미녹시딜은 약국 전용) */
+  note?: string;
+}
+
+export interface ProductCatalog {
+  /** YYYY-MM-DD. 대표 브랜드·올리브영 예시를 마지막으로 검토한 날 */
+  reviewedAt: string;
+  intervalMonths: number;
+  products: Product[];
+}
+
 export interface Product {
   id: string;
   concern: ConcernType;
   ageGroups: AgeGroup[];
   name: string;
+  /** 해당 카테고리에서 알아보기 쉬운 대표 브랜드 예시 1개 */
+  brand: string;
   category: string;
   keyIngredients: string[];
   description: string;
+  oliveYoung: OliveYoungExample;
 }
 
 export interface Guide {
