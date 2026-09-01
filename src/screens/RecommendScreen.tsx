@@ -3,7 +3,7 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { useRequiredProfile } from '../context/ProfileContext';
 import { getGuides, getProductReviewLabel, getRecommendedProducts } from '../core/recommend';
-import { AGE_GROUP_LABELS, CONCERN_LABELS } from '../types';
+import { AGE_GROUP_LABELS, CONCERN_LABELS, GENDER_LABELS } from '../types';
 import { colors, spacing } from '../theme';
 
 export default function RecommendScreen() {
@@ -14,6 +14,7 @@ export default function RecommendScreen() {
   return (
     <ScrollView style={styles.screen} contentContainerStyle={styles.container}>
       <Text style={styles.headline}>
+        {profile.gender ? `${GENDER_LABELS[profile.gender]} ` : ''}
         {AGE_GROUP_LABELS[profile.ageGroup]} 맞춤 가이드
       </Text>
 

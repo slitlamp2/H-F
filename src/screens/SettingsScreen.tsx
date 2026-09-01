@@ -10,6 +10,7 @@ import {
 
 import AgeGroupSelector from '../components/AgeGroupSelector';
 import ConcernSelector from '../components/ConcernSelector';
+import GenderSelector from '../components/GenderSelector';
 import { useRequiredProfile } from '../context/ProfileContext';
 import { confirmDialog, notify } from '../core/dialog';
 import { clearProfile, saveProfile } from '../core/profile';
@@ -24,6 +25,7 @@ import {
   DEFAULT_REMINDER_SETTINGS,
   type AgeGroup,
   type ConcernType,
+  type Gender,
   type ReminderSettings,
 } from '../types';
 import { colors, spacing } from '../theme';
@@ -44,6 +46,7 @@ function shiftTime(
 
 export default function SettingsScreen() {
   const { profile, setProfile } = useRequiredProfile();
+  const [gender, setGender] = useState<Gender>(profile.gender ?? 'male');
   const [ageGroup, setAgeGroup] = useState<AgeGroup>(profile.ageGroup);
   const [concerns, setConcerns] = useState<ConcernType[]>(profile.concerns);
   const [saving, setSaving] = useState(false);
@@ -58,6 +61,7 @@ export default function SettingsScreen() {
   }, []);
 
   const dirty =
+    gender !== profile.gender ||
     ageGroup !== profile.ageGroup ||
     concerns.length !== profile.concerns.length ||
     concerns.some((concern) => !profile.concerns.includes(concern));
@@ -68,14 +72,14 @@ export default function SettingsScreen() {
       return;
     }
     setSaving(true);
-    const next = { ...profile, ageGroup, concerns };
+    const next = { ...profile, gender, ageGroup, concerns };
     const saved = await saveProfile(next);
     if (!saved) {
       setSaving(false);
       notify('저장 실패', '프로필을 저장하지 못했어요. 다시 시도해 주세요.');
       return;
     }
-    await syncTasksWithProfile(concerns, ageGroup);
+    await syncTasksWithProfile(concerns, ageGroup, gender);
     setProfile(next);
     setSaving(false);
     notify('저장 완료', '프로필과 기본 루틴이 업데이트됐어요.');
@@ -173,6 +177,9 @@ export default function SettingsScreen() {
 
   return (
     <ScrollView style={styles.screen} contentContainerStyle={styles.container}>
+      <Text style={styles.sectionTitle}>성별</Text>
+      <GenderSelector value={gender} onChange={setGender} />
+
       <Text style={styles.sectionTitle}>연령대</Text>
       <AgeGroupSelector value={ageGroup} onChange={setAgeGroup} />
 
@@ -219,8 +226,8 @@ export default function SettingsScreen() {
       </TouchableOpacity>
 
       <Text style={styles.footnote}>
-        모든 데이터는 이 기기에만 저장됩니다. 클라우드 동기화와 실제 AI 분석은
-        다음 단계에서 제공될 예정이에요.
+        사진과 루틴 기록은 이 기기에만 저장됩니다. 타임라인에서 AI 분석을 누를
+        때만 해당 사진이 Gemini로 전송되며, 결과는 의학적 진단이 아니에요.
       </Text>
     </ScrollView>
   );

@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import {
+  ActivityIndicator,
   FlatList,
   Image,
   Modal,
@@ -16,7 +17,7 @@ import { analysisService } from '../core/analysis';
 import { confirmDialog, notify } from '../core/dialog';
 import { addPhoto, deletePhoto, getPhotos, updatePhoto } from '../core/photoLog';
 import { getRecentCompletionRate } from '../core/routine';
-import { getModule } from '../modules/registry';
+import { getModule, getPhotoTip } from '../modules/registry';
 import {
   CONCERN_LABELS,
   type AnalysisResult,
@@ -32,9 +33,11 @@ export default function TimelineScreen() {
     profile.concerns[0],
   );
   const [busy, setBusy] = useState(false);
+  const [analyzingId, setAnalyzingId] = useState<string | null>(null);
   const [analysisResult, setAnalysisResult] = useState<AnalysisResult | null>(
     null,
   );
+  const locked = busy || analyzingId !== null;
 
   const reload = useCallback(async () => {
     setPhotos(await getPhotos());
@@ -47,7 +50,7 @@ export default function TimelineScreen() {
   );
 
   const pickAndSave = async (source: 'camera' | 'library') => {
-    if (busy) {
+    if (locked) {
       return;
     }
     setBusy(true);
@@ -87,13 +90,29 @@ export default function TimelineScreen() {
   };
 
   const analyze = async (photo: PhotoEntry) => {
-    const completionRate = await getRecentCompletionRate();
-    const result = await analysisService.analyze(photo, {
-      recentCompletionRate: completionRate,
-    });
-    await updatePhoto({ ...photo, aiScore: result.score });
-    await reload();
-    setAnalysisResult(result);
+    if (locked) {
+      return;
+    }
+    setAnalyzingId(photo.id);
+    try {
+      const completionRate = await getRecentCompletionRate();
+      const result = await analysisService.analyze(photo, {
+        recentCompletionRate: completionRate,
+        gender: profile.gender,
+        ageGroup: profile.ageGroup,
+      });
+      await updatePhoto({ ...photo, aiScore: result.score });
+      await reload();
+      setAnalysisResult(result);
+    } catch (error) {
+      const message =
+        error instanceof Error
+          ? error.message
+          : '사진을 분석하지 못했어요. 다시 시도해 주세요.';
+      notify('분석 실패', message);
+    } finally {
+      setAnalyzingId(null);
+    }
   };
 
   const confirmDelete = (photo: PhotoEntry) => {
@@ -142,14 +161,14 @@ export default function TimelineScreen() {
         <TouchableOpacity
           style={styles.actionButton}
           onPress={() => pickAndSave('camera')}
-          disabled={busy}
+          disabled={locked}
         >
           <Text style={styles.actionButtonText}>📸 촬영하기</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.actionButtonSecondary}
           onPress={() => pickAndSave('library')}
-          disabled={busy}
+          disabled={locked}
         >
           <Text style={styles.actionButtonSecondaryText}>🖼 앨범에서</Text>
         </TouchableOpacity>
@@ -162,7 +181,7 @@ export default function TimelineScreen() {
         ListEmptyComponent={
           <View style={styles.empty}>
             <Text style={styles.emptyTitle}>아직 기록이 없어요</Text>
-            <Text style={styles.emptyBody}>{module.photoTip}</Text>
+            <Text style={styles.emptyBody}>{getPhotoTip(module, profile.gender)}</Text>
           </View>
         }
         renderItem={({ item }) => (
@@ -185,10 +204,19 @@ export default function TimelineScreen() {
               </Text>
               {item.aiScore !== undefined ? (
                 <Text style={styles.scoreBadge}>AI 점수 {item.aiScore}점</Text>
+              ) : analyzingId === item.id ? (
+                <View style={styles.analyzeButton}>
+                  <ActivityIndicator size="small" color={colors.primary} />
+                  <Text style={styles.analyzeButtonText}>분석 중...</Text>
+                </View>
               ) : (
                 <TouchableOpacity
-                  style={styles.analyzeButton}
+                  style={[
+                    styles.analyzeButton,
+                    analyzingId !== null && styles.analyzeButtonDisabled,
+                  ]}
                   onPress={() => analyze(item)}
+                  disabled={analyzingId !== null}
                 >
                   <Text style={styles.analyzeButtonText}>AI 분석하기</Text>
                 </TouchableOpacity>
@@ -358,11 +386,17 @@ const styles = StyleSheet.create({
   },
   analyzeButton: {
     alignSelf: 'flex-start',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
     borderWidth: 1,
     borderColor: colors.primary,
     borderRadius: 6,
     paddingHorizontal: spacing.sm,
     paddingVertical: 2,
+  },
+  analyzeButtonDisabled: {
+    opacity: 0.45,
   },
   analyzeButtonText: {
     color: colors.primary,

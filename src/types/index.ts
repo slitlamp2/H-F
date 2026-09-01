@@ -1,6 +1,20 @@
 /** 연령대 구분. 온보딩에서 선택하며 추천·가이드 개인화에 사용된다. */
 export type AgeGroup = '20s' | '30s' | '40s' | '50s+';
 
+/** 성별. 루틴·추천·가이드를 남/여로 나눌 때 사용한다. */
+export type Gender = 'male' | 'female';
+
+/** 목록이 비어 있거나 없으면 전원에게 해당한다. 값이 없으면 공통 항목만 통과한다. */
+export function includesOrAll<T>(list: T[] | undefined, value: T | undefined): boolean {
+  if (!list || list.length === 0) {
+    return true;
+  }
+  if (value === undefined) {
+    return false;
+  }
+  return list.includes(value);
+}
+
 /** 관심사(케어 도메인). 추후 'wrinkle' | 'scalp-aging' 등으로 확장한다. */
 export type ConcernType = 'acne' | 'hair';
 
@@ -22,9 +36,20 @@ export const WEEKDAY_LABELS: Record<Weekday, string> = {
 };
 
 export interface UserProfile {
+  gender?: Gender;
   ageGroup: AgeGroup;
   concerns: ConcernType[];
   createdAt: string;
+}
+
+export function isProfileComplete(
+  profile: UserProfile | null,
+): profile is UserProfile & { gender: Gender } {
+  return (
+    !!profile &&
+    (profile.gender === 'male' || profile.gender === 'female') &&
+    profile.concerns.length > 0
+  );
 }
 
 /** 사진 기록 한 건. uri는 앱 문서 폴더로 복사된 로컬 경로다. */
@@ -92,6 +117,8 @@ export interface Product {
   id: string;
   concern: ConcernType;
   ageGroups: AgeGroup[];
+  /** 생략하면 남녀 공통 */
+  genders?: Gender[];
   name: string;
   /** 해당 카테고리에서 알아보기 쉬운 대표 브랜드 예시 1개 */
   brand: string;
@@ -105,11 +132,13 @@ export interface Guide {
   id: string;
   concern: ConcernType;
   ageGroups: AgeGroup[];
+  /** 생략하면 남녀 공통 */
+  genders?: Gender[];
   title: string;
   body: string;
 }
 
-/** AI 사진 분석 결과. 실제 비전 API 연동 전까지는 목업 구현이 채운다. */
+/** AI 사진 분석 결과. Gemini 비전 호출이 채운다. 의료 진단이 아니다. */
 export interface AnalysisResult {
   score: number;
   summary: string;
@@ -121,6 +150,11 @@ export const AGE_GROUP_LABELS: Record<AgeGroup, string> = {
   '30s': '30대',
   '40s': '40대',
   '50s+': '50대 이상',
+};
+
+export const GENDER_LABELS: Record<Gender, string> = {
+  male: '남성',
+  female: '여성',
 };
 
 export const CONCERN_LABELS: Record<ConcernType, string> = {

@@ -3,57 +3,98 @@
   "intervalMonths": 3,
   "products": [
     {
-      "id": "acne-cleanser-low-ph",
+      "id": "acne-cleanser-low-ph-male",
       "concern": "acne",
-      "ageGroups": [
-        "20s",
-        "30s"
-      ],
+      "ageGroups": ["20s", "30s"],
+      "genders": ["male"],
       "name": "약산성 젤 클렌저",
       "brand": "라운드랩",
       "category": "세안",
-      "keyIngredients": [
-        "살리실산(BHA)",
-        "판테놀"
-      ],
-      "description": "피지가 많은 20~30대 트러블 피부에 맞는 pH 5.5 약산성 세안제. 아침·저녁 사용.",
+      "keyIngredients": ["살리실산(BHA)", "판테놀"],
+      "description": "피지가 많은 20~30대 남성 트러블 피부에 맞는 pH 5.5 약산성 세안. 메이크업이 없으면 아침·저녁 한 번이면 충분해요.",
+      "oliveYoung": {
+        "name": "닥터지 레드 블레미쉬 클리어 수딩 폼"
+      }
+    },
+    {
+      "id": "acne-cleanser-low-ph-female",
+      "concern": "acne",
+      "ageGroups": ["20s", "30s"],
+      "genders": ["female"],
+      "name": "약산성 클렌징 폼",
+      "brand": "라운드랩",
+      "category": "세안",
+      "keyIngredients": ["살리실산(BHA)", "판테놀"],
+      "description": "피지가 많은 20~30대 트러블 피부에 맞는 pH 5.5 약산성 세안제. 클렌징 밤 뒤에 쓰는 2차 세안으로도 좋아요.",
       "oliveYoung": {
         "name": "비플레인 녹두 약산성 클렌징폼"
       }
     },
     {
+      "id": "acne-cleansing-balm",
+      "concern": "acne",
+      "ageGroups": ["20s", "30s", "40s"],
+      "genders": ["female"],
+      "name": "저자극 클렌징 밤",
+      "brand": "바닐라코",
+      "category": "클렌징",
+      "keyIngredients": ["식물성 오일"],
+      "description": "메이크업·선크림을 남기지 않고 지우는 1차 세안. 트러블 피부는 향이 강한 오일보다 밤·밤 제형이 부담이 적어요.",
+      "oliveYoung": {
+        "name": "마녀공장 퓨어 클렌징 오일"
+      }
+    },
+    {
       "id": "acne-spot-patch",
       "concern": "acne",
-      "ageGroups": [
-        "20s",
-        "30s"
-      ],
+      "ageGroups": ["20s", "30s"],
       "name": "하이드로콜로이드 스팟 패치",
       "brand": "COSRX",
       "category": "스팟 케어",
-      "keyIngredients": [
-        "하이드로콜로이드"
-      ],
+      "keyIngredients": ["하이드로콜로이드"],
       "description": "화농성 트러블 부위를 보호하고 진정시키는 패치. 손으로 만지는 습관 차단에도 효과적.",
       "oliveYoung": {
         "name": "아크네스 하이드로콜로이드 스팟패치"
       }
     },
     {
-      "id": "acne-niacinamide-serum",
+      "id": "acne-bp-spot",
       "concern": "acne",
-      "ageGroups": [
-        "20s",
-        "30s",
-        "40s"
-      ],
+      "ageGroups": ["20s", "30s"],
+      "genders": ["male"],
+      "name": "벤조일퍼옥사이드 스팟",
+      "brand": "아크네스",
+      "category": "스팟 케어",
+      "keyIngredients": ["벤조일퍼옥사이드"],
+      "description": "화농성 여드름에 쓰는 대표 성분. 처음엔 소량만 바르고, 건조·따가움이 있으면 횟수를 줄이세요.",
+      "oliveYoung": {
+        "name": "닥터지 에이클리어 스팟 세럼",
+        "note": "벤조일퍼옥사이드는 약국 전용이에요. 이건 올리브영에서 사는 비슷한 스팟 케어예요."
+      }
+    },
+    {
+      "id": "acne-niacinamide-serum-male",
+      "concern": "acne",
+      "ageGroups": ["20s", "30s", "40s"],
+      "genders": ["male"],
       "name": "나이아신아마이드 세럼",
       "brand": "더오디너리",
       "category": "세럼",
-      "keyIngredients": [
-        "나이아신아마이드 5%",
-        "아연 PCA"
-      ],
+      "keyIngredients": ["나이아신아마이드 5%", "아연 PCA"],
+      "description": "피지 조절과 붉은 자국 완화에 도움. 저녁 세안 후 보습 전에 바르기 좋아요.",
+      "oliveYoung": {
+        "name": "닥터지 레드 블레미쉬 클리어 수딩 세럼"
+      }
+    },
+    {
+      "id": "acne-niacinamide-serum-female",
+      "concern": "acne",
+      "ageGroups": ["20s", "30s", "40s"],
+      "genders": ["female"],
+      "name": "나이아신아마이드 세럼",
+      "brand": "더오디너리",
+      "category": "세럼",
+      "keyIngredients": ["나이아신아마이드 5%", "아연 PCA"],
       "description": "피지 조절과 붉은 자국 완화에 도움. 저녁 루틴에 추가하기 좋은 기본 세럼.",
       "oliveYoung": {
         "name": "넘버즈인 5번 글루타치온씨 흔적 앰플"
@@ -62,17 +103,11 @@
     {
       "id": "acne-azelaic-cream",
       "concern": "acne",
-      "ageGroups": [
-        "30s",
-        "40s",
-        "50s+"
-      ],
+      "ageGroups": ["30s", "40s", "50s+"],
       "name": "아젤라산 크림",
       "brand": "파이오던스",
       "category": "기능성 크림",
-      "keyIngredients": [
-        "아젤라산 10%"
-      ],
+      "keyIngredients": ["아젤라산 10%"],
       "description": "성인 여드름과 홍조가 함께 있는 피부에 적합. 자극이 적어 30대 이후에도 무난.",
       "oliveYoung": {
         "name": "더오디너리 아젤라익 애시드 10%"
@@ -81,18 +116,11 @@
     {
       "id": "acne-retinal-serum",
       "concern": "acne",
-      "ageGroups": [
-        "30s",
-        "40s",
-        "50s+"
-      ],
+      "ageGroups": ["30s", "40s", "50s+"],
       "name": "레티날 나이트 세럼",
       "brand": "닥터디퍼런트",
       "category": "안티에이징",
-      "keyIngredients": [
-        "레티날 0.05%",
-        "세라마이드"
-      ],
+      "keyIngredients": ["레티날 0.05%", "세라마이드"],
       "description": "트러블 자국과 주름을 동시에 관리하는 저농도 레티노이드. 주 2~3회부터 시작.",
       "oliveYoung": {
         "name": "이니스프리 레티놀 시카 흔적 앰플"
@@ -101,19 +129,11 @@
     {
       "id": "acne-sunscreen",
       "concern": "acne",
-      "ageGroups": [
-        "20s",
-        "30s",
-        "40s",
-        "50s+"
-      ],
+      "ageGroups": ["20s", "30s", "40s", "50s+"],
       "name": "논코메도제닉 선크림",
       "brand": "닥터지",
       "category": "자외선 차단",
-      "keyIngredients": [
-        "징크옥사이드",
-        "티타늄디옥사이드"
-      ],
+      "keyIngredients": ["징크옥사이드", "티타늄디옥사이드"],
       "description": "모공을 막지 않는 무기자차 선크림. 색소침착 예방을 위해 전 연령 필수.",
       "oliveYoung": {
         "name": "라운드랩 자작나무 수분 선크림"
@@ -122,39 +142,39 @@
     {
       "id": "hair-caffeine-shampoo",
       "concern": "hair",
-      "ageGroups": [
-        "20s",
-        "30s"
-      ],
+      "ageGroups": ["20s", "30s"],
+      "genders": ["male"],
       "name": "카페인 기능성 샴푸",
       "brand": "알페신",
       "category": "샴푸",
-      "keyIngredients": [
-        "카페인",
-        "비오틴",
-        "판테놀"
-      ],
-      "description": "초기 탈모가 신경 쓰이는 20~30대용. 두피에 1~2분 머금은 뒤 헹구면 좋아요.",
+      "keyIngredients": ["카페인", "비오틴", "판테놀"],
+      "description": "초기 남성형 탈모가 신경 쓰이는 20~30대용. 두피에 1~2분 머금은 뒤 헹구면 좋아요.",
       "oliveYoung": {
-        "name": "라보에이치 두피강화 샴푸"
+        "name": "닥터포헤어 폴리젠 샴푸"
+      }
+    },
+    {
+      "id": "hair-female-shampoo",
+      "concern": "hair",
+      "ageGroups": ["20s", "30s"],
+      "genders": ["female"],
+      "name": "두피 강화 샴푸",
+      "brand": "라보에이치",
+      "category": "샴푸",
+      "keyIngredients": ["나이아신아마이드", "판테놀"],
+      "description": "가르마·정수리가 넓어 보이기 시작하는 20~30대 여성용. 두피를 문지르지 말고 손끝으로 감아 주세요.",
+      "oliveYoung": {
+        "name": "려 자양윤모 탈모증상완화 샴푸"
       }
     },
     {
       "id": "hair-scalp-tonic",
       "concern": "hair",
-      "ageGroups": [
-        "20s",
-        "30s",
-        "40s"
-      ],
+      "ageGroups": ["20s", "30s", "40s"],
       "name": "두피 쿨링 토닉",
       "brand": "닥터포헤어",
       "category": "두피 케어",
-      "keyIngredients": [
-        "멘톨",
-        "덱스판테놀",
-        "나이아신아마이드"
-      ],
+      "keyIngredients": ["멘톨", "덱스판테놀", "나이아신아마이드"],
       "description": "저녁 샴푸 후 두피에 도포해 혈행과 두피 컨디션을 관리하는 토닉.",
       "oliveYoung": {
         "name": "려 자양윤모 생기운 토닉"
@@ -163,40 +183,42 @@
     {
       "id": "hair-biotin-supplement",
       "concern": "hair",
-      "ageGroups": [
-        "20s",
-        "30s",
-        "40s",
-        "50s+"
-      ],
+      "ageGroups": ["20s", "30s", "40s", "50s+"],
+      "genders": ["female"],
       "name": "비오틴·아연 영양제",
       "brand": "종근당",
       "category": "이너케어",
-      "keyIngredients": [
-        "비오틴",
-        "아연",
-        "L-시스테인"
-      ],
-      "description": "모발 구성 영양소 보충용. 식사와 함께 하루 1회 꾸준히 복용하는 것이 핵심.",
+      "keyIngredients": ["비오틴", "아연", "L-시스테인"],
+      "description": "식이 제한·출산 후처럼 영양이 빠지기 쉬운 시기의 모발 보충용. 식사와 함께 하루 1회 꾸준히.",
       "oliveYoung": {
         "name": "뉴트리코어 비오틴 10000"
       }
     },
     {
-      "id": "hair-minoxidil-info",
+      "id": "hair-minoxidil-male",
       "concern": "hair",
-      "ageGroups": [
-        "30s",
-        "40s",
-        "50s+"
-      ],
-      "name": "미녹시딜 외용액",
+      "ageGroups": ["20s", "30s", "40s", "50s+"],
+      "genders": ["male"],
+      "name": "미녹시딜 외용액 5%",
       "brand": "마이녹실",
       "category": "의약품 정보",
-      "keyIngredients": [
-        "미녹시딜 3~5%"
-      ],
-      "description": "효과가 검증된 대표 성분. 시작 전 약사·의사 상담을 권장하며 최소 4~6개월 꾸준히.",
+      "keyIngredients": ["미녹시딜 5%"],
+      "description": "남성형 탈모에 효과가 검증된 대표 성분. 20대부터 의사·약사 상담 후 시작할 수 있으며 최소 4~6개월 꾸준히.",
+      "oliveYoung": {
+        "name": "라보에이치 탈모증상완화 앰플",
+        "note": "미녹시딜은 약국 전용이에요. 이건 올리브영에서 사는 비슷한 두피 앰플이에요."
+      }
+    },
+    {
+      "id": "hair-minoxidil-female",
+      "concern": "hair",
+      "ageGroups": ["30s", "40s", "50s+"],
+      "genders": ["female"],
+      "name": "여성용 미녹시딜 외용액 3%",
+      "brand": "마이녹실",
+      "category": "의약품 정보",
+      "keyIngredients": ["미녹시딜 3%"],
+      "description": "여성형 탈모에 쓰는 저농도 미녹시딜. 시작 전 산부인과·피부과 상담을 권하며, 임신·수유 중에는 쓰지 마세요.",
       "oliveYoung": {
         "name": "라보에이치 탈모증상완화 앰플",
         "note": "미녹시딜은 약국 전용이에요. 이건 올리브영에서 사는 비슷한 두피 앰플이에요."
@@ -205,17 +227,11 @@
     {
       "id": "hair-volume-shampoo",
       "concern": "hair",
-      "ageGroups": [
-        "40s",
-        "50s+"
-      ],
+      "ageGroups": ["40s", "50s+"],
       "name": "볼륨 강화 단백질 샴푸",
       "brand": "케라스타즈",
       "category": "샴푸",
-      "keyIngredients": [
-        "가수분해 케라틴",
-        "나이아신아마이드"
-      ],
+      "keyIngredients": ["가수분해 케라틴", "나이아신아마이드"],
       "description": "모발이 가늘어지는 40대 이후에 적합. 모발 굵기 보완과 두피 영양 공급.",
       "oliveYoung": {
         "name": "려 자양윤모 볼륨 케어 샴푸"
@@ -224,11 +240,7 @@
     {
       "id": "hair-scalp-brush",
       "concern": "hair",
-      "ageGroups": [
-        "30s",
-        "40s",
-        "50s+"
-      ],
+      "ageGroups": ["30s", "40s", "50s+"],
       "name": "실리콘 두피 마사지 브러시",
       "brand": "이니스프리",
       "category": "도구",

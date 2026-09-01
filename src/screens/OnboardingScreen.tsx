@@ -4,33 +4,35 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import AgeGroupSelector from '../components/AgeGroupSelector';
 import ConcernSelector from '../components/ConcernSelector';
+import GenderSelector from '../components/GenderSelector';
 import { useProfile } from '../context/ProfileContext';
 import { notify } from '../core/dialog';
 import { saveProfile } from '../core/profile';
 import { syncTasksWithProfile } from '../core/routine';
-import type { AgeGroup, ConcernType, UserProfile } from '../types';
+import type { AgeGroup, ConcernType, Gender, UserProfile } from '../types';
 import { colors, spacing } from '../theme';
 
 export default function OnboardingScreen() {
   const { setProfile } = useProfile();
+  const [gender, setGender] = useState<Gender | null>(null);
   const [ageGroup, setAgeGroup] = useState<AgeGroup | null>(null);
   const [concerns, setConcerns] = useState<ConcernType[]>([]);
   const [saving, setSaving] = useState(false);
 
-  const canStart = ageGroup !== null && concerns.length > 0;
+  const canStart = gender !== null && ageGroup !== null && concerns.length > 0;
 
   const handleStart = async () => {
-    if (!ageGroup || concerns.length === 0 || saving) {
+    if (!gender || !ageGroup || concerns.length === 0 || saving) {
       return;
     }
     setSaving(true);
     const profile: UserProfile = {
+      gender,
       ageGroup,
       concerns,
       createdAt: new Date().toISOString(),
@@ -41,7 +43,7 @@ export default function OnboardingScreen() {
       notify('저장 실패', '프로필을 저장하지 못했어요. 다시 시도해 주세요.');
       return;
     }
-    await syncTasksWithProfile(concerns, ageGroup);
+    await syncTasksWithProfile(concerns, ageGroup, gender);
     setProfile(profile);
   };
 
@@ -50,8 +52,11 @@ export default function OnboardingScreen() {
       <ScrollView contentContainerStyle={styles.container}>
         <Text style={styles.appName}>H&F app</Text>
         <Text style={styles.headline}>
-          나에게 맞는 케어를 시작하기 전에{'\n'}두 가지만 알려주세요
+          나에게 맞는 케어를 시작하기 전에{'\n'}세 가지만 알려주세요
         </Text>
+
+        <Text style={styles.sectionTitle}>성별</Text>
+        <GenderSelector value={gender} onChange={setGender} />
 
         <Text style={styles.sectionTitle}>연령대</Text>
         <AgeGroupSelector value={ageGroup} onChange={setAgeGroup} />

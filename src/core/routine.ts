@@ -2,6 +2,7 @@ import {
   ALL_WEEKDAYS,
   type AgeGroup,
   type ConcernType,
+  type Gender,
   type RoutineLog,
   type RoutineTask,
   type RoutineTime,
@@ -47,25 +48,38 @@ export async function getTasksForToday(): Promise<RoutineTask[]> {
 }
 
 /**
- * 프로필(관심사 + 연령대)에 맞춰 기본 루틴을 시드한다.
+ * 프로필(관심사 + 연령대 + 성별)에 맞춰 기본 루틴을 시드한다.
  * - 사용자가 직접 추가한(custom) 항목은 관심사가 유지되는 한 보존
  * - 새 프로필의 기본 템플릿에 있는 기존 항목은 순서 그대로 유지
- * - 프로필에서 벗어난 기본 항목(선택 해제된 관심사, 다른 연령대 전용)은 제거
+ * - 프로필에서 벗어난 기본 항목(선택 해제된 관심사, 다른 연령·성별 전용)은 제거
  */
 export async function syncTasksWithProfile(
   concerns: ConcernType[],
   ageGroup: AgeGroup,
+  gender: Gender,
 ): Promise<RoutineTask[]> {
   const existing = await getTasks();
   const defaults = concerns.flatMap((concern) =>
-    buildDefaultTasks(getModule(concern), ageGroup),
+    buildDefaultTasks(getModule(concern), ageGroup, gender),
   );
-  const defaultIds = new Set(defaults.map((task) => task.id));
+  const defaultById = new Map(defaults.map((task) => [task.id, task]));
+  const defaultIds = new Set(defaultById.keys());
 
-  const kept = existing.filter(
-    (task) =>
-      concerns.includes(task.concern) && (task.custom || defaultIds.has(task.id)),
-  );
+  const kept = existing
+    .filter(
+      (task) =>
+        concerns.includes(task.concern) &&
+        (task.custom || defaultIds.has(task.id)),
+    )
+    .map((task) => {
+      if (task.custom) {
+        return task;
+      }
+      const next = defaultById.get(task.id);
+      return next
+        ? { ...task, title: next.title, time: next.time, days: next.days }
+        : task;
+    });
   const keptIds = new Set(kept.map((task) => task.id));
   const added = defaults.filter((task) => !keptIds.has(task.id));
 

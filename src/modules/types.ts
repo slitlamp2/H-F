@@ -1,7 +1,9 @@
 import {
   ALL_WEEKDAYS,
+  includesOrAll,
   type AgeGroup,
   type ConcernType,
+  type Gender,
   type RoutineTask,
   type RoutineTime,
   type Weekday,
@@ -14,6 +16,8 @@ export interface RoutineTemplate {
   time: RoutineTime;
   /** 이 템플릿이 적용되는 연령대. 생략하면 전 연령. */
   ageGroups?: AgeGroup[];
+  /** 이 템플릿이 적용되는 성별. 생략하면 남녀 공통. */
+  genders?: Gender[];
   /** 수행 요일. 생략하면 매일. 주간 루틴은 특정 요일만 지정. */
   days?: Weekday[];
 }
@@ -33,17 +37,28 @@ export interface ConcernModule {
   tagline: string;
   /** 사진 촬영 시 안내 문구 (동일 조건 촬영 유도) */
   photoTip: string;
+  photoTips?: Partial<Record<Gender, string>>;
   routineTemplates: RoutineTemplate[];
 }
 
-/** 연령대에 해당하는 템플릿만 골라 기본 태스크로 변환한다. */
+export function getPhotoTip(module: ConcernModule, gender?: Gender): string {
+  if (gender && module.photoTips?.[gender]) {
+    return module.photoTips[gender] as string;
+  }
+  return module.photoTip;
+}
+
+/** 연령대·성별에 해당하는 템플릿만 골라 기본 태스크로 변환한다. */
 export function buildDefaultTasks(
   module: ConcernModule,
   ageGroup: AgeGroup,
+  gender: Gender,
 ): RoutineTask[] {
   return module.routineTemplates
     .filter(
-      (template) => !template.ageGroups || template.ageGroups.includes(ageGroup),
+      (template) =>
+        includesOrAll(template.ageGroups, ageGroup) &&
+        includesOrAll(template.genders, gender),
     )
     .map((template) => ({
       id: `${module.type}-${template.key}`,

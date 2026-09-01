@@ -6,9 +6,9 @@ import type { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import { useRequiredProfile } from '../context/ProfileContext';
 import { getPhotos } from '../core/photoLog';
 import { getLog, getTasksForToday, todayKey } from '../core/routine';
-import { getModule } from '../modules/registry';
+import { getModule, getPhotoTip } from '../modules/registry';
 import type { MainTabParamList } from '../navigation/RootNavigator';
-import { AGE_GROUP_LABELS, type PhotoEntry } from '../types';
+import { AGE_GROUP_LABELS, GENDER_LABELS, type PhotoEntry } from '../types';
 import { colors, spacing } from '../theme';
 
 export default function HomeScreen() {
@@ -52,6 +52,7 @@ export default function HomeScreen() {
   return (
     <ScrollView style={styles.screen} contentContainerStyle={styles.container}>
       <Text style={styles.greeting}>
+        {profile.gender ? `${GENDER_LABELS[profile.gender]} · ` : ''}
         {AGE_GROUP_LABELS[profile.ageGroup]} ·{' '}
         {profile.concerns.map((concern) => getModule(concern).label).join(' + ')}
       </Text>
@@ -95,7 +96,7 @@ export default function HomeScreen() {
                 아직 기록된 사진이 없어요. 기록 탭에서 첫 사진을 남겨보세요.
               </Text>
             )}
-            <Text style={styles.tip}>💡 {module.photoTip}</Text>
+            <Text style={styles.tip}>💡 {getPhotoTip(module, profile.gender)}</Text>
           </View>
         );
       })}

@@ -30,6 +30,12 @@
         }
       ],
       "expo-asset"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "f3b3842c-96ee-4910-ad77-836643999220"
+      }
+    },
+    "owner": "slitlamp2"
   }
 }

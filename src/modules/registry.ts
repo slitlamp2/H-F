@@ -1,5 +1,5 @@
 import type { ConcernType } from '../types';
-import type { ConcernModule } from './types';
+import { getPhotoTip, type ConcernModule } from './types';
 import { acneModule } from './acne';
 import { hairModule } from './hair';
 
@@ -10,6 +10,7 @@ import { hairModule } from './hair';
  */
 export const CONCERN_MODULES: ConcernModule[] = [acneModule, hairModule];
 
+export { getPhotoTip };
 export function getModule(type: ConcernType): ConcernModule {
   const found = CONCERN_MODULES.find((module) => module.type === type);
   if (!found) {
