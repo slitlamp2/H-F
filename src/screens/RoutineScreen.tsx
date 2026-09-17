@@ -31,7 +31,7 @@ import {
   type RoutineTime,
   type Weekday,
 } from '../types';
-import { colors, spacing } from '../theme';
+import { colors, radius, spacing } from '../theme';
 
 const TIME_LABELS: Record<RoutineTime, string> = {
   morning: '🌞 아침 루틴',
@@ -377,7 +377,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: colors.card,
-    borderRadius: 12,
+    borderRadius: radius.md,
     borderWidth: 1,
     borderColor: colors.border,
     padding: spacing.sm + 4,
@@ -408,7 +408,7 @@ const styles = StyleSheet.create({
   checkboxDone: {
     backgroundColor: colors.primary,
     borderColor: colors.primary,
-    color: '#FFFFFF',
+    color: colors.onPrimary,
     fontWeight: '700',
   },
   taskTextArea: {
@@ -466,18 +466,18 @@ const styles = StyleSheet.create({
     right: spacing.md,
     bottom: spacing.md,
     backgroundColor: colors.primary,
-    borderRadius: 14,
+    borderRadius: radius.md,
     paddingVertical: spacing.md,
     alignItems: 'center',
   },
   addButtonText: {
-    color: '#FFFFFF',
+    color: colors.onPrimary,
     fontSize: 16,
     fontWeight: '700',
   },
   modalOverlay: {
     flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.45)',
+    backgroundColor: colors.overlay,
     alignItems: 'center',
     justifyContent: 'center',
     padding: spacing.lg,
@@ -486,7 +486,7 @@ const styles = StyleSheet.create({
     width: '100%',
     maxWidth: 380,
     backgroundColor: colors.card,
-    borderRadius: 16,
+    borderRadius: radius.lg,
     padding: spacing.lg,
     gap: spacing.sm,
   },
@@ -519,7 +519,7 @@ const styles = StyleSheet.create({
   chip: {
     paddingHorizontal: spacing.md,
     paddingVertical: spacing.sm,
-    borderRadius: 999,
+    borderRadius: radius.pill,
     borderWidth: 1,
     borderColor: colors.border,
     backgroundColor: colors.card,
@@ -527,7 +527,7 @@ const styles = StyleSheet.create({
   dayChip: {
     width: 38,
     paddingVertical: spacing.sm,
-    borderRadius: 999,
+    borderRadius: radius.pill,
     borderWidth: 1,
     borderColor: colors.border,
     backgroundColor: colors.card,
@@ -542,7 +542,7 @@ const styles = StyleSheet.create({
     color: colors.text,
   },
   chipTextSelected: {
-    color: '#FFFFFF',
+    color: colors.onPrimary,
     fontWeight: '600',
   },
   dayHeaderRow: {
@@ -563,7 +563,7 @@ const styles = StyleSheet.create({
   },
   modalCancelButton: {
     flex: 1,
-    borderRadius: 12,
+    borderRadius: radius.md,
     paddingVertical: spacing.sm + 4,
     alignItems: 'center',
     borderWidth: 1,
@@ -577,12 +577,12 @@ const styles = StyleSheet.create({
   modalSaveButton: {
     flex: 1,
     backgroundColor: colors.primary,
-    borderRadius: 12,
+    borderRadius: radius.md,
     paddingVertical: spacing.sm + 4,
     alignItems: 'center',
   },
   modalSaveButtonText: {
-    color: '#FFFFFF',
+    color: colors.onPrimary,
     fontSize: 15,
     fontWeight: '700',
   },

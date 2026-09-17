@@ -25,7 +25,7 @@ import {
   type RoutineTask,
   type Weekday,
 } from '../types';
-import { colors, spacing } from '../theme';
+import { colors, radius, spacing } from '../theme';
 
 const MONTH_LABELS = [
   '1월',
@@ -283,7 +283,7 @@ const styles = StyleSheet.create({
   monthButton: {
     width: 40,
     height: 40,
-    borderRadius: 12,
+    borderRadius: radius.md,
     backgroundColor: colors.card,
     borderWidth: 1,
     borderColor: colors.border,
@@ -332,7 +332,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     backgroundColor: colors.card,
-    borderRadius: 14,
+    borderRadius: radius.lg,
     borderWidth: 1,
     borderColor: colors.border,
     paddingVertical: spacing.xs,
@@ -384,7 +384,7 @@ const styles = StyleSheet.create({
   detailCard: {
     marginTop: spacing.md,
     backgroundColor: colors.card,
-    borderRadius: 14,
+    borderRadius: radius.lg,
     borderWidth: 1,
     borderColor: colors.border,
     padding: spacing.md,
@@ -405,7 +405,7 @@ const styles = StyleSheet.create({
     gap: spacing.sm + 4,
     borderWidth: 1,
     borderColor: colors.border,
-    borderRadius: 12,
+    borderRadius: radius.md,
     padding: spacing.sm + 4,
   },
   taskRowDone: {
@@ -427,7 +427,7 @@ const styles = StyleSheet.create({
   checkboxDone: {
     backgroundColor: colors.primary,
     borderColor: colors.primary,
-    color: '#FFFFFF',
+    color: colors.onPrimary,
     fontWeight: '700',
   },
   taskText: {

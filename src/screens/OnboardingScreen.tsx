@@ -8,6 +8,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import AgeGroupSelector from '../components/AgeGroupSelector';
+import BrandMark from '../components/BrandMark';
 import ConcernSelector from '../components/ConcernSelector';
 import GenderSelector from '../components/GenderSelector';
 import { useProfile } from '../context/ProfileContext';
@@ -15,7 +16,7 @@ import { notify } from '../core/dialog';
 import { saveProfile } from '../core/profile';
 import { syncTasksWithProfile } from '../core/routine';
 import type { AgeGroup, ConcernType, Gender, UserProfile } from '../types';
-import { colors, spacing } from '../theme';
+import { colors, radius, spacing } from '../theme';
 
 export default function OnboardingScreen() {
   const { setProfile } = useProfile();
@@ -50,7 +51,7 @@ export default function OnboardingScreen() {
   return (
     <SafeAreaView style={styles.safeArea}>
       <ScrollView contentContainerStyle={styles.container}>
-        <Text style={styles.appName}>H&F app</Text>
+        <BrandMark />
         <Text style={styles.headline}>
           나에게 맞는 케어를 시작하기 전에{'\n'}세 가지만 알려주세요
         </Text>
@@ -90,18 +91,14 @@ const styles = StyleSheet.create({
   container: {
     padding: spacing.lg,
     paddingBottom: spacing.xl,
-  },
-  appName: {
-    fontSize: 15,
-    fontWeight: '700',
-    color: colors.primary,
-    marginBottom: spacing.sm,
+    gap: spacing.xs,
   },
   headline: {
     fontSize: 24,
     fontWeight: '700',
     color: colors.text,
     lineHeight: 34,
+    marginTop: spacing.lg,
     marginBottom: spacing.lg,
   },
   sectionTitle: {
@@ -112,9 +109,9 @@ const styles = StyleSheet.create({
     marginBottom: spacing.sm + 4,
   },
   startButton: {
-    marginTop: spacing.xl,
+    marginTop: spacing.lg,
     backgroundColor: colors.primary,
-    borderRadius: 14,
+    borderRadius: radius.md,
     paddingVertical: spacing.md,
     alignItems: 'center',
   },
@@ -122,7 +119,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.border,
   },
   startButtonText: {
-    color: '#FFFFFF',
+    color: colors.onPrimary,
     fontSize: 17,
     fontWeight: '700',
   },

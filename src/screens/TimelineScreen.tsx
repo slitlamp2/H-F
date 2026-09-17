@@ -24,7 +24,7 @@ import {
   type ConcernType,
   type PhotoEntry,
 } from '../types';
-import { colors, spacing } from '../theme';
+import { colors, radius, spacing } from '../theme';
 
 export default function TimelineScreen() {
   const { profile } = useRequiredProfile();
@@ -275,7 +275,7 @@ const styles = StyleSheet.create({
   filterChip: {
     paddingHorizontal: spacing.md,
     paddingVertical: spacing.sm,
-    borderRadius: 999,
+    borderRadius: radius.pill,
     borderWidth: 1,
     borderColor: colors.border,
     backgroundColor: colors.card,
@@ -289,7 +289,7 @@ const styles = StyleSheet.create({
     color: colors.text,
   },
   filterChipTextSelected: {
-    color: '#FFFFFF',
+    color: colors.onPrimary,
     fontWeight: '600',
   },
   actionRow: {
@@ -300,19 +300,19 @@ const styles = StyleSheet.create({
   actionButton: {
     flex: 1,
     backgroundColor: colors.primary,
-    borderRadius: 12,
+    borderRadius: radius.md,
     paddingVertical: spacing.sm + 4,
     alignItems: 'center',
   },
   actionButtonText: {
-    color: '#FFFFFF',
+    color: colors.onPrimary,
     fontSize: 15,
     fontWeight: '700',
   },
   actionButtonSecondary: {
     flex: 1,
     backgroundColor: colors.card,
-    borderRadius: 12,
+    borderRadius: radius.md,
     paddingVertical: spacing.sm + 4,
     alignItems: 'center',
     borderWidth: 1,
@@ -347,7 +347,7 @@ const styles = StyleSheet.create({
   photoCard: {
     flexDirection: 'row',
     backgroundColor: colors.card,
-    borderRadius: 14,
+    borderRadius: radius.lg,
     borderWidth: 1,
     borderColor: colors.border,
     overflow: 'hidden',
@@ -409,7 +409,7 @@ const styles = StyleSheet.create({
   },
   modalOverlay: {
     flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.45)',
+    backgroundColor: colors.overlay,
     alignItems: 'center',
     justifyContent: 'center',
     padding: spacing.lg,
@@ -418,7 +418,7 @@ const styles = StyleSheet.create({
     width: '100%',
     maxWidth: 360,
     backgroundColor: colors.card,
-    borderRadius: 16,
+    borderRadius: radius.lg,
     padding: spacing.lg,
     gap: spacing.sm,
   },
@@ -451,12 +451,12 @@ const styles = StyleSheet.create({
   modalCloseButton: {
     marginTop: spacing.md,
     backgroundColor: colors.primary,
-    borderRadius: 12,
+    borderRadius: radius.md,
     paddingVertical: spacing.sm + 4,
     alignItems: 'center',
   },
   modalCloseButtonText: {
-    color: '#FFFFFF',
+    color: colors.onPrimary,
     fontSize: 15,
     fontWeight: '700',
   },

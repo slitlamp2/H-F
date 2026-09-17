@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
     marginRight: 6,
   },
   label: {
-    color: '#FFFFFF',
+    color: colors.onPrimary,
     fontSize: 13,
     lineHeight: 16,
     fontWeight: '700',
@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
     width: 14,
     height: 4,
     borderRadius: 1.2,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: colors.onPrimary,
   },
   spoke0: {},
   spoke45: {
@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
     width: 9,
     height: 9,
     borderRadius: 5,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: colors.onPrimary,
     alignItems: 'center',
     justifyContent: 'center',
   },

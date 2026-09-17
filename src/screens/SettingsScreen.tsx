@@ -28,7 +28,7 @@ import {
   type Gender,
   type ReminderSettings,
 } from '../types';
-import { colors, spacing } from '../theme';
+import { colors, radius, spacing } from '../theme';
 
 function formatTime(hour: number, minute: number): string {
   return `${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}`;
@@ -171,6 +171,7 @@ export default function SettingsScreen() {
         value={enabled}
         onValueChange={(value) => toggleReminder(slot, value)}
         trackColor={{ true: colors.primary, false: colors.border }}
+        thumbColor={colors.onPrimary}
       />
     </View>
   );
@@ -252,7 +253,7 @@ const styles = StyleSheet.create({
   saveButton: {
     marginTop: spacing.lg,
     backgroundColor: colors.primary,
-    borderRadius: 14,
+    borderRadius: radius.md,
     paddingVertical: spacing.md,
     alignItems: 'center',
   },
@@ -260,13 +261,13 @@ const styles = StyleSheet.create({
     backgroundColor: colors.border,
   },
   saveButtonText: {
-    color: '#FFFFFF',
+    color: colors.onPrimary,
     fontSize: 16,
     fontWeight: '700',
   },
   reminderCard: {
     backgroundColor: colors.card,
-    borderRadius: 14,
+    borderRadius: radius.lg,
     borderWidth: 1,
     borderColor: colors.border,
     padding: spacing.md,
@@ -328,7 +329,7 @@ const styles = StyleSheet.create({
   },
   resetButton: {
     marginTop: spacing.lg,
-    borderRadius: 14,
+    borderRadius: radius.md,
     paddingVertical: spacing.md,
     alignItems: 'center',
     borderWidth: 1,

@@ -4,7 +4,7 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { useRequiredProfile } from '../context/ProfileContext';
 import { getGuides, getProductReviewLabel, getRecommendedProducts } from '../core/recommend';
 import { AGE_GROUP_LABELS, CONCERN_LABELS, GENDER_LABELS } from '../types';
-import { colors, spacing } from '../theme';
+import { colors, radius, shadows, spacing } from '../theme';
 
 export default function RecommendScreen() {
   const { profile } = useRequiredProfile();
@@ -28,9 +28,8 @@ export default function RecommendScreen() {
 
       <Text style={styles.headline}>추천 제품·성분</Text>
       <Text style={styles.disclaimer}>
-        {getProductReviewLabel()}. 성분·카테고리 기준 추천이며, 괄호 안은 대표
-        브랜드 예시예요. 초록 칸은 올리브영에서 구하기 쉬운 비슷한 제품이에요.
-        의약품은 반드시 전문가와 상담하세요.
+        {getProductReviewLabel()}. 애터미몰에서 구할 수 있는 제품 기준이에요.
+        의약품이 필요하면 전문가와 상담하세요.
       </Text>
 
       {products.map((product) => (
@@ -51,12 +50,12 @@ export default function RecommendScreen() {
             </View>
           )}
           <Text style={styles.productDescription}>{product.description}</Text>
-          <View style={styles.oliveYoungBox}>
-            <Text style={styles.oliveYoungBadge}>올리브영</Text>
-            <View style={styles.oliveYoungCopy}>
-              <Text style={styles.oliveYoungName}>{product.oliveYoung.name}</Text>
-              {product.oliveYoung.note ? (
-                <Text style={styles.oliveYoungNote}>{product.oliveYoung.note}</Text>
+          <View style={styles.atomyBox}>
+            <Text style={styles.atomyBadge}>애터미몰</Text>
+            <View style={styles.atomyCopy}>
+              <Text style={styles.atomyName}>{product.atomy.name}</Text>
+              {product.atomy.note ? (
+                <Text style={styles.atomyNote}>{product.atomy.note}</Text>
               ) : null}
             </View>
           </View>
@@ -89,7 +88,7 @@ const styles = StyleSheet.create({
   },
   guideCard: {
     backgroundColor: colors.primaryLight,
-    borderRadius: 14,
+    borderRadius: radius.lg,
     padding: spacing.md,
     gap: spacing.xs,
   },
@@ -110,11 +109,12 @@ const styles = StyleSheet.create({
   },
   productCard: {
     backgroundColor: colors.card,
-    borderRadius: 14,
+    borderRadius: radius.lg,
     borderWidth: 1,
     borderColor: colors.border,
     padding: spacing.md,
     gap: spacing.sm,
+    ...shadows.card,
   },
   productHeader: {
     flexDirection: 'row',
@@ -154,37 +154,37 @@ const styles = StyleSheet.create({
     color: colors.textMuted,
     lineHeight: 19,
   },
-  oliveYoungBox: {
+  atomyBox: {
     flexDirection: 'row',
     alignItems: 'flex-start',
     gap: spacing.sm,
-    backgroundColor: colors.oliveYoungLight,
+    backgroundColor: colors.primaryLight,
     borderRadius: 10,
     paddingHorizontal: spacing.sm,
     paddingVertical: spacing.sm,
   },
-  oliveYoungBadge: {
+  atomyBadge: {
     fontSize: 11,
     fontWeight: '700',
-    color: '#FFFFFF',
-    backgroundColor: colors.oliveYoung,
+    color: colors.onPrimary,
+    backgroundColor: colors.primary,
     overflow: 'hidden',
     paddingHorizontal: spacing.sm,
     paddingVertical: 3,
     borderRadius: 6,
     marginTop: 1,
   },
-  oliveYoungCopy: {
+  atomyCopy: {
     flex: 1,
     gap: 2,
   },
-  oliveYoungName: {
+  atomyName: {
     fontSize: 13,
     fontWeight: '600',
     color: colors.text,
     lineHeight: 18,
   },
-  oliveYoungNote: {
+  atomyNote: {
     fontSize: 11,
     color: colors.textMuted,
     lineHeight: 16,

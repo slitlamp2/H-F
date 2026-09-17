@@ -3,13 +3,14 @@ import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-nati
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import type { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 
+import BrandMark from '../components/BrandMark';
 import { useRequiredProfile } from '../context/ProfileContext';
 import { getPhotos } from '../core/photoLog';
 import { getLog, getTasksForToday, todayKey } from '../core/routine';
 import { getModule, getPhotoTip } from '../modules/registry';
 import type { MainTabParamList } from '../navigation/RootNavigator';
 import { AGE_GROUP_LABELS, GENDER_LABELS, type PhotoEntry } from '../types';
-import { colors, spacing } from '../theme';
+import { colors, radius, shadows, spacing } from '../theme';
 
 export default function HomeScreen() {
   const { profile } = useRequiredProfile();
@@ -51,13 +52,15 @@ export default function HomeScreen() {
 
   return (
     <ScrollView style={styles.screen} contentContainerStyle={styles.container}>
+      <BrandMark />
       <Text style={styles.greeting}>
         {profile.gender ? `${GENDER_LABELS[profile.gender]} · ` : ''}
         {AGE_GROUP_LABELS[profile.ageGroup]} ·{' '}
         {profile.concerns.map((concern) => getModule(concern).label).join(' + ')}
       </Text>
 
-      <View style={styles.card}>
+      <View style={styles.hero}>
+        <Text style={styles.heroEyebrow}>TODAY</Text>
         <Text style={styles.cardTitle}>오늘의 루틴</Text>
         <Text style={styles.progressText}>
           {completedCount} / {taskCount} 완료
@@ -72,7 +75,7 @@ export default function HomeScreen() {
             : '루틴 탭에서 오늘의 케어를 체크해 보세요.'}
         </Text>
         <TouchableOpacity onPress={() => navigation.navigate('Calendar')}>
-          <Text style={styles.calendarLink}>📅 캘린더에서 보기</Text>
+          <Text style={styles.calendarLink}>캘린더에서 보기</Text>
         </TouchableOpacity>
       </View>
 
@@ -114,18 +117,35 @@ const styles = StyleSheet.create({
     gap: spacing.md,
   },
   greeting: {
-    fontSize: 20,
-    fontWeight: '700',
-    color: colors.text,
+    fontSize: 15,
+    fontWeight: '600',
+    color: colors.textMuted,
+    marginTop: spacing.sm,
     marginBottom: spacing.xs,
+  },
+  hero: {
+    backgroundColor: colors.card,
+    borderRadius: radius.lg,
+    padding: spacing.lg,
+    borderWidth: 1,
+    borderColor: colors.border,
+    gap: spacing.sm,
+    ...shadows.card,
+  },
+  heroEyebrow: {
+    fontSize: 11,
+    fontWeight: '800',
+    color: colors.primary,
+    letterSpacing: 1.4,
   },
   card: {
     backgroundColor: colors.card,
-    borderRadius: 14,
+    borderRadius: radius.lg,
     padding: spacing.md,
     borderWidth: 1,
     borderColor: colors.border,
     gap: spacing.sm,
+    ...shadows.card,
   },
   cardTitle: {
     fontSize: 16,
@@ -152,8 +172,8 @@ const styles = StyleSheet.create({
   },
   progressTrack: {
     flexDirection: 'row',
-    height: 8,
-    borderRadius: 4,
+    height: 10,
+    borderRadius: radius.pill,
     backgroundColor: colors.primaryLight,
     overflow: 'hidden',
   },

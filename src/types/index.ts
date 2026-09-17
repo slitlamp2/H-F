@@ -99,15 +99,15 @@ export interface RoutineLog {
   completedTaskIds: string[];
 }
 
-/** 올리브영에서 구하기 쉬운 비슷한 제품 예시 */
-export interface OliveYoungExample {
+/** 애터미몰에서 사는 제품 예시 */
+export interface AtomyExample {
   name: string;
   /** 동일 성분이 아닐 때 안내 (예: 미녹시딜은 약국 전용) */
   note?: string;
 }
 
 export interface ProductCatalog {
-  /** YYYY-MM-DD. 대표 브랜드·올리브영 예시를 마지막으로 검토한 날 */
+  /** YYYY-MM-DD. 애터미 추천 제품을 마지막으로 검토한 날 */
   reviewedAt: string;
   intervalMonths: number;
   products: Product[];
@@ -120,12 +120,12 @@ export interface Product {
   /** 생략하면 남녀 공통 */
   genders?: Gender[];
   name: string;
-  /** 해당 카테고리에서 알아보기 쉬운 대표 브랜드 예시 1개 */
+  /** 애터미 브랜드명 */
   brand: string;
   category: string;
   keyIngredients: string[];
   description: string;
-  oliveYoung: OliveYoungExample;
+  atomy: AtomyExample;
 }
 
 export interface Guide {

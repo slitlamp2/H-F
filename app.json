@@ -9,9 +9,11 @@
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.slitlamp2.hnfapp",
+      "buildNumber": "7",
       "infoPlist": {
         "NSCameraUsageDescription": "피부·두피 상태를 기록하기 위해 카메라를 사용합니다.",
-        "NSPhotoLibraryUsageDescription": "피부·두피 사진을 선택하기 위해 사진 보관함에 접근합니다."
+        "NSPhotoLibraryUsageDescription": "피부·두피 사진을 선택하기 위해 사진 보관함에 접근합니다.",
+        "ITSAppUsesNonExemptEncryption": false
       }
     },
     "android": {

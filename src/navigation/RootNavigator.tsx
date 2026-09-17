@@ -41,15 +41,15 @@ const TAB_LABELS: Record<keyof MainTabParamList, string> = {
 
 const styles = StyleSheet.create({
   tabBar: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: colors.card,
     borderTopWidth: 1,
-    borderTopColor: '#EDF0F4',
+    borderTopColor: colors.border,
     paddingTop: 8,
     paddingHorizontal: 4,
-    shadowColor: '#1A1D21',
-    shadowOpacity: 0.04,
-    shadowRadius: 8,
-    shadowOffset: { width: 0, height: -1 },
+    shadowColor: colors.primary,
+    shadowOpacity: 0.06,
+    shadowRadius: 10,
+    shadowOffset: { width: 0, height: -2 },
     elevation: 8,
   },
   tabItem: {
@@ -94,7 +94,7 @@ function MainTabs() {
           title: TAB_LABELS[name],
           headerTitleAlign: 'center',
           headerTitleStyle: { fontWeight: '700', color: colors.text },
-          headerStyle: { backgroundColor: colors.background },
+          headerStyle: { backgroundColor: colors.card },
           headerShadowVisible: false,
           headerTintColor: colors.text,
           headerLeftContainerStyle: styles.headerLeft,
@@ -102,7 +102,7 @@ function MainTabs() {
           headerTitleContainerStyle: styles.headerTitle,
           headerRight: () => <SettingsHeaderButton />,
           tabBarActiveTintColor: colors.primary,
-          tabBarInactiveTintColor: '#8A93A3',
+          tabBarInactiveTintColor: colors.textSubtle,
           tabBarStyle: [
             styles.tabBar,
             Platform.OS === 'android' && {
@@ -146,7 +146,7 @@ function AppStack() {
         headerTitleAlign: 'center',
         headerTitleStyle: { fontWeight: '700', color: colors.text },
         headerShadowVisible: false,
-        headerStyle: { backgroundColor: colors.background },
+        headerStyle: { backgroundColor: colors.card },
         headerTintColor: colors.text,
       }}
     >

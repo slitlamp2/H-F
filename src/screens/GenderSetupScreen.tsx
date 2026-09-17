@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import BrandMark from '../components/BrandMark';
 import GenderSelector from '../components/GenderSelector';
 import { useRequiredProfile } from '../context/ProfileContext';
 import { notify } from '../core/dialog';
 import { saveProfile } from '../core/profile';
 import { syncTasksWithProfile } from '../core/routine';
 import type { Gender } from '../types';
-import { colors, spacing } from '../theme';
+import { colors, radius, spacing } from '../theme';
 
 /** 기존 프로필에 성별이 없을 때 한 번만 받는 화면 */
 export default function GenderSetupScreen() {
@@ -34,7 +35,7 @@ export default function GenderSetupScreen() {
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <Text style={styles.appName}>H&F app</Text>
+      <BrandMark />
       <Text style={styles.headline}>
         루틴과 추천을 더 맞게{'\n'}성별을 알려 주세요
       </Text>
@@ -60,17 +61,12 @@ const styles = StyleSheet.create({
     backgroundColor: colors.background,
     padding: spacing.lg,
   },
-  appName: {
-    fontSize: 15,
-    fontWeight: '700',
-    color: colors.primary,
-    marginBottom: spacing.sm,
-  },
   headline: {
     fontSize: 24,
     fontWeight: '700',
     color: colors.text,
     lineHeight: 34,
+    marginTop: spacing.lg,
     marginBottom: spacing.md,
   },
   body: {
@@ -82,7 +78,7 @@ const styles = StyleSheet.create({
   button: {
     marginTop: spacing.xl,
     backgroundColor: colors.primary,
-    borderRadius: 14,
+    borderRadius: radius.md,
     paddingVertical: spacing.md,
     alignItems: 'center',
   },
@@ -90,7 +86,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.border,
   },
   buttonText: {
-    color: '#FFFFFF',
+    color: colors.onPrimary,
     fontSize: 17,
     fontWeight: '700',
   },
